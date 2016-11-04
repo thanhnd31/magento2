@@ -63,3 +63,5 @@ atlassian*
 !/composer.json
 !/composer.lock
 !/README.md
+update/
+phpserver/
