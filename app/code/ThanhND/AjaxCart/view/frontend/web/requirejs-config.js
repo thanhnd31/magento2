@@ -9,7 +9,7 @@
 var config = {
     map: {
         '*': {
-            catalogAddToCart:'SMTraining_AjaxCart/js/dt-add-to-cart'
+            catalogAddToCart:'ThanhND_AjaxCart/js/dt-add-to-cart'
         }
     }
 };

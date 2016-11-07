@@ -6,4 +6,4 @@
  * Time: 16:13
  */
 use Magento\Framework\Component\ComponentRegistrar;
-ComponentRegistrar::register(ComponentRegistrar::MODULE,'SMTraining_AjaxCart',__DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE,'ThanhND_AjaxCart',__DIR__);
