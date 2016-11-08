@@ -70,46 +70,48 @@ class Link extends Template
         }
 
         // Get all link in group
-        $footerlinks = $this->getLinks($groupData);
+        foreach ($groupData as $group)
+        {
+            $links = $this->getLinks($group);
+            if(empty($links))
+            {
+                continue;
+            }
+            $footerlinks[$group['group_name']] = $links;
+        }
 
         return $footerlinks;
     }
 
-    public function getLinks($groups)
+    /**
+     * Get all links in group
+     * @param $groups
+     *
+     * @return array
+     */
+    public function getLinks($group)
     {
         $links = array();
 
-        if(empty($groups))
+        $linkModel = $this->_linkFactory->create();
+        $linkData = $linkModel->getCollection()
+            ->addFieldToSelect(['link_name','link'])
+            ->addFieldToFilter('is_active',1)
+            ->addFieldToFilter('group_id',$group['group_id'])
+            ->setOrder('sort_order','asc')
+            ->getData();
+
+        if(empty($linkData))
         {
             return $links;
         }
 
-        $linkModel = $this->_linkFactory->create();
-        foreach ($groups as $group)
+        foreach($linkData as $link)
         {
-            $linkData = $linkModel->getCollection()
-                ->addFieldToSelect(['link_name','link'])
-                ->addFieldToFilter('is_active',1)
-                ->addFieldToFilter('group_id',$group['group_id'])
-                ->setOrder('sort_order','asc')
-                ->getData();
-
-            if(empty($linkData))
-            {
-                continue;
-            }
-
-             $linkItems = array();
-
-            foreach($linkData as $link)
-            {
-                $linkItems[] = array(
-                    'url'=>$this->getUrl($link['link']),
-                    'label'=>$link['link_name']
-                );
-            }
-
-            $links[$group['group_name']] = $linkItems;
+            $links[] = array(
+                'url'=>$this->getUrl($link['link']),
+                'label'=>$link['link_name']
+            );
         }
 
         return $links;
