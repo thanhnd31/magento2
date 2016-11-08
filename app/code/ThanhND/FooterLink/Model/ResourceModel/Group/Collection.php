@@ -10,7 +10,7 @@ namespace ThanhND\FooterLink\Model\ResourceModel\Group;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
-class Colection extends AbstractCollection
+class Collection extends AbstractCollection
 {
     /**
      * Collection initialization

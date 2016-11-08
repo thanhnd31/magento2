@@ -22,7 +22,7 @@ class Group extends AbstractModel implements IdentityInterface
      */
     protected function _construct()
     {
-        $this->_init('ThanhND\FooterLink\Model\Resource\Group');
+        $this->_init('ThanhND\FooterLink\Model\ResourceModel\Group');
     }
 
     /**
