@@ -12,6 +12,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\Result\JsonFactory;
 use ThanhND\FooterLink\Model\GroupFactory;
 
 abstract class GroupAbstract extends Action
@@ -28,6 +29,9 @@ abstract class GroupAbstract extends Action
     /** @var  \ThanhND\FooterLink\Model\GroupFactory */
     protected $_groupFactory;
 
+    /** @var  \Magento\Framework\Controller\Result\JsonFactory */
+    protected $_jsonFactory;
+
     /**
      * GroupAbstract constructor.
      *
@@ -40,12 +44,14 @@ abstract class GroupAbstract extends Action
         Context $context,
         Registry $registry,
         PageFactory $resultPageFactory,
-        GroupFactory $groupFactory
+        GroupFactory $groupFactory,
+        JsonFactory $jsonFactory
     ){
         parent::__construct($context);
         $this->_coreRegistry=$registry;
         $this->_groupFactory = $groupFactory;
         $this->_resultPageFactory = $resultPageFactory;
+        $this->_jsonFactory = $jsonFactory;
     }
 
     /**
