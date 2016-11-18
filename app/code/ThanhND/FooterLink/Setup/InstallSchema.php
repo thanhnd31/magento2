@@ -41,7 +41,7 @@ class InstallSchema implements InstallSchemaInterface
                 ['nullable'=>false,'default'=>0],
                 'List of store show this group'
             )->addColumn(
-                'creattion_time',
+                'creation_time',
                 Table::TYPE_TIMESTAMP,
                 null,
                 ['nullable'=>false,'default'=>Table::TIMESTAMP_INIT],

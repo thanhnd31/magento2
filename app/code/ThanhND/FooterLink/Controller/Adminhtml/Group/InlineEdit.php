@@ -14,6 +14,11 @@ use ThanhND\FooterLink\Controller\Adminhtml\GroupAbstract;
 
 class InlineEdit extends GroupAbstract
 {
+    /**
+     * Inline Edit execute
+     *
+     * @return $this
+     */
     public function execute()
     {
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
