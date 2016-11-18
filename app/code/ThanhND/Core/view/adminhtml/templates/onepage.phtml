@@ -1,0 +1,175 @@
+<?php echo $block->welcome(); ?>
+
+<!-- Grid html -->
+
+
+<!-- Form html -->
+
+<div class="admin__data-grid-wrap" data-role="grid-wrapper">
+    <table class="data-grid data-grid-draggable" data-role="grid">
+        <thead>
+        <tr data-bind="foreach: {data: getVisible(), as: '$col'}"><!-- ko template: getHeader() -->
+            <th class="data-grid-th _sortable _draggable" data-bind="css: {
+        _sortable: sortable,
+        _draggable: draggable,
+        _ascend: sorting === 'asc',
+        _descend: sorting === 'desc'}, click: sort">
+                <span class="data-grid-cell-content" data-bind="text: label">ID</span>
+            </th>
+            <!-- /ko --><!-- ko template: getHeader() -->
+            <th class="data-grid-th _sortable _draggable" data-bind="css: {
+        _sortable: sortable,
+        _draggable: draggable,
+        _ascend: sorting === 'asc',
+        _descend: sorting === 'desc'}, click: sort">
+                <span class="data-grid-cell-content" data-bind="text: label">Name</span>
+            </th>
+            <!-- /ko --><!-- ko template: getHeader() -->
+            <th class="data-grid-th _sortable _draggable" data-bind="css: {
+        _sortable: sortable,
+        _draggable: draggable,
+        _ascend: sorting === 'asc',
+        _descend: sorting === 'desc'}, click: sort">
+                <span class="data-grid-cell-content" data-bind="text: label">Store Views</span>
+            </th>
+            <!-- /ko --><!-- ko template: getHeader() -->
+            <th class="data-grid-th _sortable _draggable" data-bind="css: {
+        _sortable: sortable,
+        _draggable: draggable,
+        _ascend: sorting === 'asc',
+        _descend: sorting === 'desc'}, click: sort">
+                <span class="data-grid-cell-content" data-bind="text: label">Sort Order</span>
+            </th>
+            <!-- /ko --><!-- ko template: getHeader() -->
+            <th class="data-grid-th _sortable _draggable" data-bind="css: {
+        _sortable: sortable,
+        _draggable: draggable,
+        _ascend: sorting === 'asc',
+        _descend: sorting === 'desc'}, click: sort">
+                <span class="data-grid-cell-content" data-bind="text: label">Is Active</span>
+            </th>
+            <!-- /ko --><!-- ko template: getHeader() -->
+            <th class="data-grid-th" data-bind="css: {
+        _sortable: sortable,
+        _draggable: draggable,
+        _ascend: sorting === 'asc',
+        _descend: sorting === 'desc'}, click: sort">
+                <span class="data-grid-cell-content" data-bind="text: label">Action</span>
+            </th>
+            <!-- /ko --></tr>
+        </thead>
+        <tbody><!-- ko scope: bulk --><!-- ko template: getTemplate() -->
+        <tr class="data-grid-bulk-edit-panel data-grid-editable-row" data-bind="visible: active, foreach: {data: fields, as: '$col'}" style="display: none;">
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}">
+                <!-- ko if: $parent.isActionsColumn($col) --><!-- /ko -->
+
+                <!-- ko if: $data.isEditor --><!-- /ko -->
+            </td><!-- /ko -->
+
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}">
+                <!-- ko if: $parent.isActionsColumn($col) --><!-- /ko -->
+
+                <!-- ko if: $data.isEditor --><!-- /ko -->
+            </td><!-- /ko -->
+
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}">
+                <!-- ko if: $parent.isActionsColumn($col) --><!-- /ko -->
+
+                <!-- ko if: $data.isEditor -->
+                <label class="admin__field-label admin__field-label-vertical" data-bind="attr: {for: uid}, i18n: 'All in Column'" for="BWOLJG1">All in Column</label>
+                <!-- ko template: getTemplate() -->
+                <input class="admin__control-text" type="text" data-bind="
+        event: {change: userChanges},
+        value: value,
+        hasFocus: focused,
+        valueUpdate: valueUpdate,
+        attr: {
+            name: inputName,
+            placeholder: placeholder,
+            'aria-describedby': noticeId,
+            id: uid,
+            disabled: disabled
+    }" name="group_name" placeholder="" aria-describedby="notice-BWOLJG1" id="BWOLJG1">
+                <!-- /ko -->
+                <!-- /ko -->
+            </td><!-- /ko -->
+
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}">
+                <!-- ko if: $parent.isActionsColumn($col) --><!-- /ko -->
+
+                <!-- ko if: $data.isEditor --><!-- /ko -->
+            </td><!-- /ko -->
+
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}">
+                <!-- ko if: $parent.isActionsColumn($col) --><!-- /ko -->
+
+                <!-- ko if: $data.isEditor -->
+                <label class="admin__field-label admin__field-label-vertical" data-bind="attr: {for: uid}, i18n: 'All in Column'" for="UU9XXJO">All in Column</label>
+                <!-- ko template: getTemplate() -->
+                <input class="admin__control-text" type="text" data-bind="
+        event: {change: userChanges},
+        value: value,
+        hasFocus: focused,
+        valueUpdate: valueUpdate,
+        attr: {
+            name: inputName,
+            placeholder: placeholder,
+            'aria-describedby': noticeId,
+            id: uid,
+            disabled: disabled
+    }" name="sort_order" placeholder="" aria-describedby="notice-UU9XXJO" id="UU9XXJO">
+                <!-- /ko -->
+                <!-- /ko -->
+            </td><!-- /ko -->
+
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}">
+                <!-- ko if: $parent.isActionsColumn($col) --><!-- /ko -->
+
+                <!-- ko if: $data.isEditor -->
+                <label class="admin__field-label admin__field-label-vertical" data-bind="attr: {for: uid}, i18n: 'All in Column'" for="GBSUPTM">All in Column</label>
+                <!-- ko template: getTemplate() -->
+                <select class="admin__control-select" data-bind="
+    attr: {
+        name: inputName,
+        id: uid,
+        disabled: disabled,
+        'aria-describedby': noticeId
+    },
+    hasFocus: focused,
+    optgroup: options,
+    value: value,
+    optionsCaption: caption,
+    optionsValue: 'value',
+    optionsText: 'label'" name="is_active" id="GBSUPTM" aria-describedby="notice-GBSUPTM"><option value=""> </option><option data-title="Active" value="1">Active</option><option data-title="In Active" value="0">In Active</option></select>
+                <!-- /ko -->
+                <!-- /ko -->
+            </td><!-- /ko -->
+
+            <!-- ko if: $parent.getColumn(index).visible --><td data-bind="css: {'data-grid-actions-cell': $parent.isActionsColumn($col)}" class="data-grid-actions-cell">
+                <!-- ko if: $parent.isActionsColumn($col) -->
+                <!-- ko with: $parent -->
+                <button class="action-default" type="button" data-bind="click: apply, disable: !hasData" disabled="">
+                    <span data-bind="i18n: 'Apply'">Apply</span>
+                </button>
+                <!-- /ko -->
+                <!-- /ko -->
+
+                <!-- ko if: $data.isEditor --><!-- /ko -->
+            </td><!-- /ko -->
+        </tr>
+        <!-- /ko --><!-- /ko -->
+        <!-- ko repeat: {foreach: rows, item: '$row'} --><!-- ko with: _editor --><!-- ko if: isActive($row()._rowIndex, true) --><!-- /ko --><!-- /ko --><tr class="data-row" data-bind="css: {'_odd-row': $index % 2}" data-repeat-index="0">
+            <!-- ko fastForEach: {data: getVisible(), as: '$col'} --><td data-bind="css: getFieldClass($row()), click: getFieldHandler($row()), template: getBody()">
+                <div class="data-grid-cell-content" data-bind="text: $col.getLabel($row())">1</div></td><td><input type="text"/></td><td data-bind="css: getFieldClass($row()), click: getFieldHandler($row()), template: getBody()" class="_dragging">
+                <div class="data-grid-cell-content" data-bind="text: $col.getLabel($row())">All Store Views</div></td><td data-bind="css: getFieldClass($row()), click: getFieldHandler($row()), template: getBody()">
+                <div class="data-grid-cell-content" data-bind="text: $col.getLabel($row())">99</div></td><td data-bind="css: getFieldClass($row()), click: getFieldHandler($row()), template: getBody()">
+                <div class="data-grid-cell-content" data-bind="text: $col.getLabel($row())">Active</div></td><td data-bind="css: getFieldClass($row()), click: getFieldHandler($row()), template: getBody()" class="data-grid-actions-cell">
+                <!-- ko if: $col.isSingle($row()._rowIndex) --><!-- ko repeat: {foreach: $col.getVisibleActions($row()._rowIndex), item: '$action'} --><button>Save</button><!-- /ko --><!-- /ko -->
+
+                <!-- ko if: $col.isMultiple($row()._rowIndex) --><!-- /ko -->
+            </td><!-- /ko -->
+        </tr><!-- /ko -->
+        <!-- ko ifnot: hasData() --><!-- /ko -->
+        </tbody>
+    </table>
+</div>
