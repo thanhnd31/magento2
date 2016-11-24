@@ -2,15 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: thanhnd1
- * Date: 17/11/2016
- * Time: 14:17
+ * Date: 24/11/2016
+ * Time: 15:52
  */
 
-namespace ThanhND\FooterLink\Controller\Adminhtml\Group;
+namespace ThanhND\FooterLink\Controller\Adminhtml\Link;
 
-use ThanhND\FooterLink\Controller\Adminhtml\GroupAbstract;
+use ThanhND\FooterLink\Controller\Adminhtml\LinkAbstract;
 
-class Edit extends GroupAbstract
+class Edit extends LinkAbstract
 {
     /**
      * Edit action execution
@@ -19,16 +19,16 @@ class Edit extends GroupAbstract
      */
     public function execute()
     {
-        $groupId = $this->getRequest()->getParam('id');
+        $linkId = $this->getRequest()->getParam('id');
 
-        $model = $this->_groupFactory->create();
+        $model = $this->_linkFactory->create();
 
-        if($groupId)
+        if($linkId)
         {
-            $model->load($groupId);
+            $model->load($linkId);
             if(!$model->getId())
             {
-                $this->messageManager->addError(__('This group no longer exists.'));
+                $this->messageManager->addError(__('This link no longer exists.'));
                 $this->_redirect('*/*/index');
                 return;
             }
@@ -38,7 +38,7 @@ class Edit extends GroupAbstract
         $resultPage = $this->_resultPageFactory->create();
         $resultPage->setActiveMenu('ThanhND_Core::smtraining');
         $resultPage->getConfig()->getTitle()
-            ->prepend($model->getId() ? $model->getGroupName() : __('New Group'));
+            ->prepend($model->getId() ? $model->getLinkName() : __('New Link'));
         return $resultPage;
     }
 }
