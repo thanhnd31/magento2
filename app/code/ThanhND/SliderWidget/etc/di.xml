@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="ThanhND\SliderWidget\Model\ResourceModel\Slider\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sliderwidget_slider</argument>
+            <argument name="resourceModel" xsi:type="string">ThanhND\SliderWidget\Model\ResourceModel\Slider</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="slider_listing_data_source" xsi:type="string">ThanhND\SliderWidget\Model\ResourceModel\Slider\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="ThanhND\SliderWidget\Model\ResourceModel\Banner\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sliderwidget_banner</argument>
+            <argument name="resourceModel" xsi:type="string">ThanhND\SliderWidget\Model\ResourceModel\Banner</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="banner_listing_data_source" xsi:type="string">ThanhND\SliderWidget\Model\ResourceModel\Banner\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

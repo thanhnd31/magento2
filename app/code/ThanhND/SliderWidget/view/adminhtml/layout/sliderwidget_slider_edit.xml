@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="slider_form"/>
+            <referenceBlock name="slider_form">
+                <block acl="ThanhND_SliderWidget::sliderwidget_banner"
+                       class="ThanhND\SliderWidget\Block\Adminhtml\SliderBannerTab"
+                       name="bannertab" />
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

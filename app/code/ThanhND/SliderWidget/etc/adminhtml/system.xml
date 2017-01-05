@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../Backend/etc/system_file.xsd">
+    <system>
+        <section id="sliderwidget" translate="label" sortOrder="2" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>Slider Widget Manager</label>
+            <tab>smtraining</tab>
+            <resource>ThanhND_SliderWidget::config_sliderwidget</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enable_in_frontend" translate="label" type="select" sortOrder="1"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable in frontend.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
