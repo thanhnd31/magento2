@@ -8,7 +8,7 @@
         "AFL-3.0"
     ],
     "require": {
-        "magento/product-community-edition": "2.1.3",
+        "magento/product-community-edition": "2.1.5",
         "composer/composer": "@alpha",
         "magestore/magento2-language-vi-vn": "*",
         "magento/module-bundle-sample-data": "100.1.*",
