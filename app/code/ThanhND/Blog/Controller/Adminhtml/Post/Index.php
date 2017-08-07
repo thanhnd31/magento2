@@ -1,5 +1,7 @@
 <?php
-namespace ThanhND\Blog\Controller\Adminhtml\Index;
+
+namespace ThanhND\Blog\Controller\Adminhtml\Post;
+
 class Index extends \Magento\Backend\App\Action
 {
     
@@ -17,7 +19,7 @@ class Index extends \Magento\Backend\App\Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->_setActiveMenu('ThanhND_Blog::post');
+        $resultPage->setActiveMenu('ThanhND_Blog::post');
         $resultPage->addBreadcrumb(__('Blog Posts'), __('Blog Posts'));
         $resultPage->addBreadcrumb(__('Manage Post'), __('Manage Post'));
         $resultPage->getConfig()->getTitle()->prepend(__('Blog Posts'));

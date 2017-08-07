@@ -1,17 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
-<acl>
-    <resources>
-        <resource id="Magento_Backend::admin">
-            <resource id="Magento_Backend::content">
-                <resource id="ThanhND_Blog::post_content" title="ThanhND Blog" sortOrder="10">
-                    <resource id="ThanhND_Blog::post" title="ThanhND Blog Manage Post" sortOrder="40">
-                        <resource id="ThanhND_Blog::save" title="ThanhND Blog Save Blog Post" sortOrder="10"/>
-                        <resource id="ThanhND_Blog::post_delete" title="ThanhND Blog Delete Blog Post" sortOrder="20"/>
-                    </resource>
-                </resource>
-            </resource>
-        </resource>
-    </resources>
-</acl>
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="ThanhND_Blog::blog_content" title="Blog" module="ThanhND_Blog" sortOrder="50" parent="ThanhND_Core::smtraining" resource="ThanhND_Blog::blog_content" />
+        <add id="ThanhND_Blog::post" title="Posts" module="ThanhND_Blog" sortOrder="0" parent="ThanhND_Blog::blog_content" action="blog/post" resource="ThanhND_Blog::post"/>
+    </menu>
 </config>

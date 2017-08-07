@@ -3,8 +3,13 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="ThanhND_Blog::top" title="TITLE HERE FOR">
-                    <resource id="ThanhND_Blog::config" title="TITLE HERE FOR"/>
+                <resource id="ThanhND_Core::smtraining">
+                    <resource id="ThanhND_Blog::blog_content" title="Blog" sortOrder="10" >
+                        <resource id="ThanhND_Blog::post" title="Blog Posts" sortOrder="40">
+                            <resource id="ThanhND_Blog::save" title="Save Blog Post" sortOrder="10" />
+                            <resource id="ThanhND_Blog::post_delete" title="Delete Blog Post" sortOrder="20" />
+                        </resource>
+                    </resource>
                 </resource>
             </resource>
         </resources>
