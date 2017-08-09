@@ -2,19 +2,12 @@
 
 namespace ThanhND\Blog\Controller\Adminhtml\Post;
 
-class Index extends \Magento\Backend\App\Action
+use ThanhND\Blog\Controller\Adminhtml\AbstractPost;
+
+class Index extends AbstractPost
 {
     
-    const ADMIN_RESOURCE = 'Index';       
-        
-    protected $resultPageFactory;
-    public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory)
-    {
-        $this->resultPageFactory = $resultPageFactory;        
-        parent::__construct($context);
-    }
+    const ADMIN_RESOURCE = 'Index';
     
     public function execute()
     {
@@ -25,10 +18,5 @@ class Index extends \Magento\Backend\App\Action
         $resultPage->getConfig()->getTitle()->prepend(__('Blog Posts'));
 
         return $resultPage;
-    }
-
-    public function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('ThanhND_Blog::post');
     }
 }
