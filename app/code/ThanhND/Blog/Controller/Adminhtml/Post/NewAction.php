@@ -14,12 +14,7 @@ class NewAction extends AbstractPost
 {
     public function execute()
     {
-//        $resultForward = $this->resultForwardFactory->create();
-//        return $resultForward->forward('edit');
-        $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('ThanhND_Core::smtraining');
-        $resultPage->getConfig()->getTitle()
-            ->prepend( __('New Group'));
-        return $resultPage;
+        $resultForward = $this->resultForwardFactory->create();
+        return $resultForward->forward('edit');
     }
 }
