@@ -1,0 +1,41 @@
+<h1>This is my template, there are many like it, but this one is mine.</h1>
+<div>
+    <h2>Hello world Magento 2</h2>
+    <span id="messageg"></span><br/>
+    <span id="message"></span>
+</div>
+<!--Use component module by call component module in js script tag-->
+<script type="text/javascript">
+    // Define: declare a module which is registed in requirejs system. See more in file requirejs-config.js
+    // Require: load module which is defined in js system
+    requirejs(['jquery','ThanhND_JsInitTutorial/global'],function($,global){
+        $('#messageg').text(global.message);
+    });
+</script>
+
+<!-- Use component module by x-magento-init script tag -->
+<!--// components initialized on the element defined by selector-->
+<!--"<element_selector>": {-->
+<!--    "<js_component1>": ...,-->
+<!--    "<js_component2>": ...-->
+<!-- },-->
+<!-- // components initialized without binding to an element-->
+<!-- "*": {-->
+<!--    "<js_component3>": ...-->
+<!-- }-->
+<script type="text/x-magento-init">
+{
+    "#message":{
+        "ThanhND_JsInitTutorial/example":{
+            "message":"Hello X-Magento-Init"
+        }
+    }
+}
+</script>
+
+
+<!--Use component module with content load template file(.html)-->
+
+<!--Use component module by html attribut 'data-mage-init'-->
+<!-- <html_tag data-mage-init='{"<component_name":{...}}'/> -->
+<div data-mage-init='{"ThanhND_JsInitTutorial/example":{"message":"Hello Data-Mage-Init"}}'></div>
