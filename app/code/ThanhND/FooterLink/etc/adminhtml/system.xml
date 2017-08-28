@@ -4,7 +4,7 @@
         <section id="thanhnd_footerlink" translate="label" sortOrder="1" showInDefault="1"
                  showInWebsite="1" showInStore="1">
             <label>Footer Links Manager</label>
-            <tab>thanhnd_smtraining</tab>
+            <tab>thanhnd_modules</tab>
             <resource>ThanhND_FooterLinks::config_footerlink</resource>
             <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1"
                    showInWebsite="1" showInStore="1">

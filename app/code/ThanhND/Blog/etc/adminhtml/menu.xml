@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="ThanhND_Blog::blog_content" title="Blog" module="ThanhND_Blog" sortOrder="50" parent="ThanhND_Core::smtraining" resource="ThanhND_Blog::blog_content" />
+        <add id="ThanhND_Blog::blog_content" title="Blog" module="ThanhND_Blog" sortOrder="50" parent="ThanhND_Core::thanhnd" resource="ThanhND_Blog::blog_content" />
         <add id="ThanhND_Blog::post" title="Posts" module="ThanhND_Blog" sortOrder="0" parent="ThanhND_Blog::blog_content" action="blog/post" resource="ThanhND_Blog::post"/>
     </menu>
 </config>

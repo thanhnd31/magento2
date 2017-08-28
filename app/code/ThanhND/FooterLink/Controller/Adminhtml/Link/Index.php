@@ -11,7 +11,7 @@ class Index extends LinkAbstract
     public function execute()
     {
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('ThanhND_Core::smtraining');
+        $resultPage->setActiveMenu('ThanhND_Core::thanhnd');
         $resultPage->getConfig()->getTitle()->prepend(__('Manage Footer Links'));
 
         $resultPage->addBreadcrumb(__('Training'),__('Training'));

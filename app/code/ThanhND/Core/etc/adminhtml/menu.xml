@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="ThanhND_Core::smtraining" title="Training" module="ThanhND_Core" sortOrder="15" dependsOnModule="ThanhND_Core" resource="ThanhND_Core::smtraining"/>
+        <add id="ThanhND_Core::thanhnd" title="ThanhND" module="ThanhND_Core" sortOrder="15" dependsOnModule="ThanhND_Core" resource="ThanhND_Core::thanhnd"/>
     </menu>
 </config>

@@ -3,7 +3,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="ThanhND_Core::smtraining">
+                <resource id="ThanhND_Core::thanhnd">
                     <resource id="ThanhND_Blog::blog_content" title="Blog" sortOrder="10" >
                         <resource id="ThanhND_Blog::post" title="Blog Posts" sortOrder="40">
                             <resource id="ThanhND_Blog::save" title="Save Blog Post" sortOrder="10" />

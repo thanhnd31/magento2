@@ -36,7 +36,7 @@ class Edit extends LinkAbstract
         }
 
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('ThanhND_Core::smtraining');
+        $resultPage->setActiveMenu('ThanhND_Core::thanhnd');
         $resultPage->getConfig()->getTitle()
             ->prepend($model->getId() ? $model->getLinkName() : __('New Link'));
         return $resultPage;

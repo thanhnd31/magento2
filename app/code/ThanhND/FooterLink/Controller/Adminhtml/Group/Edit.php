@@ -36,7 +36,7 @@ class Edit extends GroupAbstract
         }
 
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('ThanhND_Core::smtraining');
+        $resultPage->setActiveMenu('ThanhND_Core::thanhnd');
         $resultPage->getConfig()->getTitle()
             ->prepend($model->getId() ? $model->getGroupName() : __('New Group'));
         return $resultPage;

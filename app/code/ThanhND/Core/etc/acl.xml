@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="ThanhND_Core::thanhnd" title="Training" sortOrder="20"/>
+            </resource>
+        </resources>
+    </acl>
+</config>
