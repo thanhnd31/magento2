@@ -1,0 +1,22 @@
+<?php
+$socials = $block->getSocials();
+?>
+<div class="block block-social-login">
+    <div class="block-title">
+        <?php echo __("Sign In using your social account");?>
+    </div>
+    <div class="block-content">
+        <?php foreach ($socials as $social=>$data):?>
+            <a class="action primary button"
+               data-mage-init='{
+                "ThanhND_SocialLogin/js/social":{
+                    "url":"<?php echo $data['url'];?>",
+                    "label":"<?php echo __('Login by '.$data['label']);?>",
+                    "size":"{width:600,height:400,top:10,left:20}"
+                }}'>
+                <i class="fa fa-<?php echo $social;?>" aria-hidden="true"></i>
+                <span><?php echo __('Login with'.$data['label']); ?></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div>
