@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module">
+    <menu>
+        <add id="ThanhND_SocialLogin::sociallogin" title="Social Login" module="ThanhND_SocialLogin" sortOrder="30" parent="ThanhND_Core::thanhnd" resource="ThanhND_SocialLogin::sociallogin"/>
+        <add id="ThanhND_SocialLogin::sociallogin_config" title="Configurations" module="ThanhND_SocialLogin" sortOrder="30" parent="ThanhND_SocialLogin::sociallogin" resource="ThanhND_SocialLogin::sociallogin_config" action="adminhtml/system_config/edit/section/sociallogin"/>
+    </menu>
+</config>
