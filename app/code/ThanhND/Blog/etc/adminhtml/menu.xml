@@ -3,5 +3,6 @@
     <menu>
         <add id="ThanhND_Blog::blog_content" title="Blog" module="ThanhND_Blog" sortOrder="50" parent="ThanhND_Core::thanhnd" resource="ThanhND_Blog::blog_content" />
         <add id="ThanhND_Blog::post" title="Posts" module="ThanhND_Blog" sortOrder="0" parent="ThanhND_Blog::blog_content" action="blog/post" resource="ThanhND_Blog::post"/>
+        <add id="ThanhND_Blog::configuration" title="Configurations" module="ThanhND_Blog" sortOrder="10" parent="ThanhND_Blog::blog_content" action="adminhtml/system_config/edit/section/blog" resource="ThanhND_Blog::configuration"/>
     </menu>
 </config>
