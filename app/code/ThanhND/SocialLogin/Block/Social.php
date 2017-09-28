@@ -39,7 +39,6 @@ class Social extends Template
 	            );
             }
         }
-
         return $socials;
     }
 

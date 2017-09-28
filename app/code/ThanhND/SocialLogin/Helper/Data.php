@@ -8,7 +8,6 @@
 
 namespace ThanhND\SocialLogin\Helper;
 
-
 class Data extends \ThanhND\Core\Helper\Data
 {
 	protected $social;
