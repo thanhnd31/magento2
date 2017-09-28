@@ -3,7 +3,7 @@
     <default>
         <thanhnd_sociallogin>
             <general>
-                <is_enabled>1</is_enabled>
+                <enable>1</enable>
             </general>
         </thanhnd_sociallogin>
     </default>

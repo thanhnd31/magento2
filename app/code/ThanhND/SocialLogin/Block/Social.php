@@ -8,7 +8,7 @@
 
 namespace ThanhND\SocialLogin\Block;
 
-use Sulaeman\SocialLogin\Model\SocialLogin;
+use ThanhND\SocialLogin\Model\SocialLogin;
 use ThanhND\SocialLogin\Helper\Data as SocialHelper;
 use Magento\Framework\View\Element\Template;
 
@@ -18,19 +18,28 @@ class Social extends Template
 
     public function __construct(
         Template\Context $context,
-        SocialLogin $socialLogin,
+//        SocialLogin $socialLogin,
+        SocialHelper $socialHelper,
         array $data = []){
+    	$this->socialHelper = $socialHelper;
         parent::__construct($context, $data);
     }
 
     public function getSocials()
     {
-        $availableSocial = $this->socialHelper->getAvailableSocials();
-        foreach ($availableSocial as $social)
+        $availableSocials = $this->socialHelper->getAvailableSocials();
+	    $socials = [];
+        foreach ($availableSocials as $social=>$label)
         {
-            $this->socialHelper->isEnable($social);
+	        $this->socialHelper->setSocial($social);
+            if($this->socialHelper->isEnable()){
+            	$socials[$social] = array(
+            		'url'=>$this->getSocialUrl($social),
+		            'label'=>$label
+	            );
+            }
         }
-        $socials = [];
+
         return $socials;
     }
 
