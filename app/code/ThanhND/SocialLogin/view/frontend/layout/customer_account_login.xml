@@ -1,17 +1,12 @@
-<<<<<<< HEAD
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-=======
-<?xml version="1.0" encoding="UTF-8" ?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocationn="urn:magento:framework:View/Layout/etc/page_configuaration.xsd">
->>>>>>> c6ee6f10d760887aaabd506f9c49ed6184f82db6
     <head>
         <css src="ThanhND_SocialLogin::css/styles.css"/>
         <css src="ThanhND_SocialLogin::css/font-awesome.min.css"/>
     </head>
     <body>
         <referenceContainer name="customer.login.container">
-            <block class="ThanhND\SocialLogin\Block\Social" name="customer.login.container.social" ifconfig="thanhnd_sociallogin/general/enable" template="ThanhND_SocialLogin::social.phtml" />
+            <block class="ThanhND\SocialLogin\Block\Social" name="customer.login.social" ifconfig="thanhnd_sociallogin/general/enable" template="ThanhND_SocialLogin::social.phtml" />
         </referenceContainer>
     </body>
 </page>
