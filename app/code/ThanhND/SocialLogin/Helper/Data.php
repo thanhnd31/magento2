@@ -9,8 +9,10 @@
 namespace ThanhND\SocialLogin\Helper;
 
 
-class Data
+class Data extends \ThanhND\Core\Helper\Data
 {
+	protected $social;
+
     public function getAvailableSocials(){
         $availableSocials = array(
             "google"=>"Google",
@@ -20,5 +22,17 @@ class Data
         );
 
         return $availableSocials;
+    }
+
+    public function isEnable(){
+    	if(!$this->social)
+	    {
+	    	return false;
+	    }
+		return $this->getConfigValue('thanhnd_sociallogin/'.$this->social.'/enable');
+    }
+
+    public function setSocial($social){
+		$this->social = $social;
     }
 }
