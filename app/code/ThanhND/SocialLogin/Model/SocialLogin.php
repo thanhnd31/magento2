@@ -14,7 +14,6 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Registry;
-use Mageplaza\SocialLogin\Model\Social;
 use ThanhND\SocialLogin\Helper\Data as SocialHelper;
 use Magento\Framework\Model\Context;
 
@@ -45,11 +44,11 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	 */
 	public function __construct(
 		Context $context,
+		SocialHelper $socialHelper,
+		CustomerFactory $customerFactory,
 		Registry $registry,
 		AbstractResource $resource = null,
 		AbstractDb $resourceCollection = null,
-		SocialHelper $socialHelper,
-		CustomerFactory $customerFactory,
 		array $data = [])
 	{
 		$this->socialHelper = $socialHelper;
@@ -97,6 +96,11 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 		}
 	}
 
+	/**
+	 * @param $socialIdentifier
+	 * @param $social
+	 * @return mixed
+	 */
 	public function getCustomer($socialIdentifier,$social)
 	{
 		$customer = $this->customerFactory->create();
@@ -112,18 +116,28 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 		return $customer;
 	}
 
+	/**
+	 * @param $userData
+	 * @param \Magento\Store\Model\Store $store
+	 * @return mixed
+	 * @throws \Exception
+	 */
 	public function createCustomer($userData,\Magento\Store\Model\Store $store){
 		$customer = $this->customerFactory->create();
-		$customer->setWebsiterId($store->getWebsiteId());
+		$customer->setWebsiteId($store->getWebsiteId());
 		$customer->loadByEmail($userData['email']);
 
 		if(!$customer->getId()){
-			$customer->setFirstName($userData['firstname'])
-				->setLastName($userData['lastname'])
+			$customer->setFirstname($userData['firstname'])
+				->setLastname($userData['lastname'])
 				->setEmail($userData['email'])
 				->setStore($store);
 			try{
 				$customer->save();
+				$this->setSocialId($userData['identifier'])
+					->setCustomerId($customer->getId())
+					->setType($userData['social']);
+				$this->save();
 			}catch (\Excepttion $e){
 				if($customer->getId())
 				{

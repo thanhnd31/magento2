@@ -12,26 +12,62 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use ThanhND\SocialLogin\Model\SocialLogin;
 use ThanhND\SocialLogin\Helper\Data as SocialHelper;
+use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Customer\Model\Account\Redirect as AccountRedirect;
 
 class Login extends Action
 {
+	/**
+	 * @var SocialLogin
+	 */
 	protected $social;
+
+	/**
+	 * @var SocialHelper
+	 */
 	protected $socialHelper;
+
+	/**
+	 * @var CustomerSession
+	 */
+	protected $customerSession;
+
+	/**
+	 * @var \Magento\Framework\UrlInterface
+	 */
+	protected $urlBuilder;
+
+	/**
+	 * @type
+	 */
+	private $cookieMetadataManager;
+
+	/**
+	 * @type
+	 */
+	private $cookieMetadataFactory;
+
+	protected $accountRedirect;
 
 	public function __construct(
 		Context $context,
 		SocialHelper $socialHelper,
+		CustomerSession $customerSession,
+		AccountRedirect $accountRedirect,
 		SocialLogin $social
 	){
 		$this->social = $social;
 		$this->socialHelper = $socialHelper;
+		$this->customerSession = $customerSession;
+		$this->urlBuilder = $context->getUrl();
+		$this->accountRedirect = $accountRedirect;
+
 		parent::__construct($context);
 	}
 
 	public function execute()
 	{
 		$social = $this->getRequest()->getParam('app');
-		echo $social;
 
 		// Check social type is valid
 		if(!$this->socialHelper->isAvailableSocial($social)){
@@ -49,7 +85,7 @@ class Login extends Action
 		}
 
 		// Get social customer
-		$customer = $this->social->getCustomer($userProfile->getIdentifier,$social);
+		$customer = $this->social->getCustomer($userProfile->identifier,$social);
 		// If new customer, create customer from social information
 		if(!$customer->getId()){
 			$user = array(
@@ -64,27 +100,82 @@ class Login extends Action
 			}catch (\Excepttion $e){
 				$this->messageManager->addErrorMessage($e->getMessage());
 				$this->_redirect('customer/account/login');
-				return $this->closePopup();
+				return $this;
 			}
 		}
-
 		return $this->loginRedirect($customer);
 	}
 
-	protected function createCustomer($user){
-			return $customer = $user;
-	}
-
+	/**
+	 * @param $customer
+	 * @return mixed
+	 */
 	protected function loginRedirect($customer){
 		if($customer || $customer->getId())
 		{
-			// Set authen
-			return false;
+			$this->customerSession->setCustomerAsLoggedIn($customer);
+			$this->customerSession->regenerateId();
+
+			if ($this->getCookieManager()->getCookie('mage-cache-sessid')) {
+				$metadata = $this->getCookieMetadataFactory()->createCookieMetadata();
+				$metadata->setPath('/');
+				$this->getCookieManager()->deleteCookie('mage-cache-sessid', $metadata);
+			}
 		}
 
 		$resultRaw = $this->resultFactory->create('raw');
-		$content = '<>';
-		return $resultRaw->setContents($content);
+
+		return $resultRaw->setContents(sprintf("<script>window.opener.socialCallback('%s', window);</script>", $this->getRedirectUrl()));
+	}
+
+	protected function getRedirectUrl(){
+		$url = $this->urlBuilder->getUrl('customer/account');
+
+		if ($this->_request->getParam('authen') == 'popup') {
+			$url = $this->urlBuilder->getUrl('checkout');
+		} else {
+			$requestedRedirect = $this->accountRedirect->getRedirectCookie();
+			if (!$this->socialHelper->getConfigValue('customer/startup/redirect_dashboard') && $requestedRedirect) {
+				$url = $this->_redirect->success($requestedRedirect);
+				$this->accountRedirect->clearRedirectCookie();
+			}
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Retrieve cookie manager
+	 *
+	 * @deprecated
+	 * @return \Magento\Framework\Stdlib\Cookie\PhpCookieManager
+	 */
+	private function getCookieManager()
+	{
+		if (!$this->cookieMetadataManager) {
+			$this->cookieMetadataManager = \Magento\Framework\App\ObjectManager::getInstance()->get(
+				\Magento\Framework\Stdlib\Cookie\PhpCookieManager::class
+			);
+		}
+
+		return $this->cookieMetadataManager;
+	}
+
+	/**
+	 * Retrieve cookie metadata factory
+	 *
+	 * @deprecated
+	 * @return \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
+	 */
+	private function getCookieMetadataFactory()
+	{
+		if (!$this->cookieMetadataFactory) {
+			$this->cookieMetadataFactory = \Magento\Framework\App\ObjectManager::getInstance()->get(
+				\Magento\Framework\Stdlib\Cookie\CookieMetadataFactory::class
+			);
+		}
+
+		return $this->cookieMetadataFactory;
 	}
 
 	/**

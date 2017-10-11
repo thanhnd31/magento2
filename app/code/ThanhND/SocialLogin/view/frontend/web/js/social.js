@@ -1,4 +1,22 @@
-define(['jquery'],function ($) {
+define([
+    'jquery',
+    'Magento_Customer/js/customer-data'
+], function ($, customerData) {
+    'use strict';
+
+    window.socialCallback = function (url, windowObj) {
+        customerData.invalidate(['customer']);
+        customerData.reload(['customer'], true);
+
+        if (url !== '') {
+            window.location.href = url;
+        } else {
+            window.location.reload(true);
+        }
+
+        windowObj.close();
+    };
+
     return function (config, element) {
         var model = {
             initialize: function () {
