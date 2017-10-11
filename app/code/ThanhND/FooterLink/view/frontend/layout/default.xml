@@ -3,7 +3,7 @@
     <update handle="footer_links"/>
     <body>
         <referenceContainer name="footer">
-            <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="subsribe.pthml"/>
+            <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="subscribe.phtml"/>
             <block class="ThanhND\FooterLink\Block\Link" name="thanhnd_footer_links" template="footerlinks.phtml" before="copyright" ifconfig="thanhnd_footerlink/general/enable"/>
         </referenceContainer>
     </body>
