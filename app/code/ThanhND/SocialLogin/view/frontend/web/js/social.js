@@ -1,3 +1,41 @@
 define(['jquery'],function ($) {
+    return function (config, element) {
+        var model = {
+            initialize: function () {
+                var self = this;
+                $(element).on('click', function () {
+                    self.openPopup();
+                });
+            },
 
+            openPopup: function () {
+                var size = JSON.parse(config.size);
+                var w = size.width;
+                var h = size.height;
+                var l = size.left;
+                var t = size.top;
+                window.open(config.url, config.label, this.getPopupParams(w,h,l,t));
+            },
+
+            getPopupParams: function (w, h, l, t) {
+                this.screenX = typeof window.screenX != 'undefined' ? window.screenX : window.screenLeft;
+                this.screenY = typeof window.screenY != 'undefined' ? window.screenY : window.screenTop;
+                this.outerWidth = typeof window.outerWidth != 'undefined' ? window.outerWidth : document.body.clientWidth;
+                this.outerHeight = typeof window.outerHeight != 'undefined' ? window.outerHeight : (document.body.clientHeight - 22);
+                this.width = w ? w : 500;
+                this.height = h ? h : 420;
+                this.left = l ? l : parseInt(this.screenX + ((this.outerWidth - this.width) / 2), 10);
+                this.top = t ? t : parseInt(this.screenY + ((this.outerHeight - this.height) / 2.5), 10);
+                return (
+                    'width=' + this.width +
+                    ',height=' + this.height +
+                    ',left=' + this.left +
+                    ',top=' + this.top
+                );
+            }
+        };
+        model.initialize();
+
+        return model;
+    };
 })

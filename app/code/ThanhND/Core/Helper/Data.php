@@ -13,8 +13,17 @@ use Magento\Framework\App\Helper\Context;
 
 class Data extends AbstractHelper
 {
+	/**
+	 * @var \Magento\Store\Model\StoreManagerInterface
+	 */
     protected $storeManager;
 
+	/**
+	 * Data constructor.
+	 * @param Context $context
+	 * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+	 * @param array $data
+	 */
     public function __construct(
         Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
@@ -25,6 +34,11 @@ class Data extends AbstractHelper
         $this->storeManager = $storeManager;
     }
 
+	/**
+	 * @param $path
+	 * @param null $storeId
+	 * @return mixed
+	 */
     public function getConfigValue($path,$storeId = null)
     {
         if(!$storeId)
@@ -35,4 +49,12 @@ class Data extends AbstractHelper
         return $this->scopeConfig->getValue($path,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,$storeId);
     }
+
+    public function getWebsite(){
+		return $this->storeManager->getWebsite();
+	}
+
+	public function getStore(){
+    	return $this->storeManager->getStore();
+	}
 }
