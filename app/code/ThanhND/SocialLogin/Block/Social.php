@@ -8,7 +8,6 @@
 
 namespace ThanhND\SocialLogin\Block;
 
-use ThanhND\SocialLogin\Model\SocialLogin;
 use ThanhND\SocialLogin\Helper\Data as SocialHelper;
 use Magento\Framework\View\Element\Template;
 
@@ -18,7 +17,6 @@ class Social extends Template
 
     public function __construct(
         Template\Context $context,
-//        SocialLogin $socialLogin,
         SocialHelper $socialHelper,
         array $data = []){
     	$this->socialHelper = $socialHelper;
