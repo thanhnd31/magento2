@@ -8,7 +8,10 @@
 
 namespace ThanhND\SocialLogin\Helper;
 
-
+/**
+ * Class Data
+ * @package ThanhND\SocialLogin\Helper
+ */
 class Data extends \ThanhND\Core\Helper\Data
 {
 	const PROVIDER_DATA = array(
@@ -38,6 +41,10 @@ class Data extends \ThanhND\Core\Helper\Data
         return self::AVAILABLE_SOCIALS;
     }
 
+	/**
+	 * @param $social
+	 * @return bool
+	 */
     public function isAvailableSocial($social){
 		if(!isset(self::AVAILABLE_SOCIALS[$social])){
 			return false;
@@ -110,10 +117,9 @@ class Data extends \ThanhND\Core\Helper\Data
 		return self::PROVIDER_DATA[$this->social];
 	}
 
-	public function getSocialConfig(){
-		return [];
-	}
-
+	/**
+	 * @return mixed
+	 */
 	public function getSocial(){
 		return $this->social;
 	}

@@ -47,8 +47,19 @@ class Login extends Action
 	 */
 	private $cookieMetadataFactory;
 
+	/**
+	 * @var AccountRedirect
+	 */
 	protected $accountRedirect;
 
+	/**
+	 * Login constructor.
+	 * @param Context $context
+	 * @param SocialHelper $socialHelper
+	 * @param CustomerSession $customerSession
+	 * @param AccountRedirect $accountRedirect
+	 * @param SocialLogin $social
+	 */
 	public function __construct(
 		Context $context,
 		SocialHelper $socialHelper,
@@ -65,6 +76,9 @@ class Login extends Action
 		parent::__construct($context);
 	}
 
+	/**
+	 * @return $this|mixed
+	 */
 	public function execute()
 	{
 		$social = $this->getRequest()->getParam('app');
@@ -128,6 +142,10 @@ class Login extends Action
 		return $resultRaw->setContents(sprintf("<script>window.opener.socialCallback('%s', window);</script>", $this->getRedirectUrl()));
 	}
 
+
+	/**
+	 * @return string
+	 */
 	protected function getRedirectUrl(){
 		$url = $this->urlBuilder->getUrl('customer/account');
 

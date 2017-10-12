@@ -17,6 +17,10 @@ use Magento\Framework\Registry;
 use ThanhND\SocialLogin\Helper\Data as SocialHelper;
 use Magento\Framework\Model\Context;
 
+/**
+ * Class SocialLogin
+ * @package ThanhND\SocialLogin\Model
+ */
 class SocialLogin extends AbstractModel implements IdentityInterface
 {
 	/**
@@ -101,16 +105,15 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	 * @param $social
 	 * @return mixed
 	 */
-	public function getCustomer($socialIdentifier,$social)
+	public function getCustomer($socialIdentifier, $social)
 	{
 		$customer = $this->customerFactory->create();
 		$socialCustomer = $this->getCollection()
-			->addFieldToFilter('social_id',$socialIdentifier)
-			->addFieldToFilter('type',$social)
+			->addFieldToFilter('social_id', $socialIdentifier)
+			->addFieldToFilter('type', $social)
 			->getFirstItem();
 
-		if($socialCustomer && $socialCustomer->getId())
-		{
+		if ($socialCustomer && $socialCustomer->getId()) {
 			$customer->load($socialCustomer->getCustomerId());
 		}
 		return $customer;
@@ -122,25 +125,25 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function createCustomer($userData,\Magento\Store\Model\Store $store){
+	public function createCustomer($userData, \Magento\Store\Model\Store $store)
+	{
 		$customer = $this->customerFactory->create();
 		$customer->setWebsiteId($store->getWebsiteId());
 		$customer->loadByEmail($userData['email']);
 
-		if(!$customer->getId()){
+		if (!$customer->getId()) {
 			$customer->setFirstname($userData['firstname'])
 				->setLastname($userData['lastname'])
 				->setEmail($userData['email'])
 				->setStore($store);
-			try{
+			try {
 				$customer->save();
 				$this->setSocialId($userData['identifier'])
 					->setCustomerId($customer->getId())
 					->setType($userData['social']);
 				$this->save();
-			}catch (\Excepttion $e){
-				if($customer->getId())
-				{
+			} catch (\Excepttion $e) {
+				if ($customer->getId()) {
 					$customer->delete();
 				}
 				throw $e;
@@ -169,7 +172,6 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 			]
 		);
 
-		//return array_merge($data, $this->socialHelper->getSocialConfig());
 		return $data;
 	}
 }
