@@ -41,6 +41,8 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	/**
 	 * SocialLogin constructor.
 	 * @param Context $context
+	 * @param SocialHelper $socialHelper
+	 * @param CustomerFactory $customerFactory
 	 * @param Registry $registry
 	 * @param AbstractResource|null $resource
 	 * @param AbstractDb|null $resourceCollection
@@ -79,6 +81,7 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	/**
 	 * @param $social
 	 * @return mixed
+	 * @throws \Exception
 	 */
 	public function getUserProfile($social)
 	{
@@ -95,8 +98,7 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 
 			return $adapter->getUserProfile();
 		} catch (\Exception $e) {
-			echo __("Ooophs, we got an error: %1", $e->getMessage());
-			die;
+			throw $e;
 		}
 	}
 
@@ -125,7 +127,7 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	public function createCustomer($userData, \Magento\Store\Model\Store $store)
+	public function createCustomer($userData, $store)
 	{
 		$customer = $this->customerFactory->create();
 		$customer->setWebsiteId($store->getWebsiteId());
@@ -154,6 +156,15 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 	}
 
 	/**
+	 * @return $this
+	 */
+	public function save()
+	{
+		$this->_getResource()->save($this);
+		return $this;
+	}
+
+	/**
 	 * @param $social
 	 * @return array
 	 */
@@ -162,16 +173,15 @@ class SocialLogin extends AbstractModel implements IdentityInterface
 		$this->socialHelper->setSocial($social);
 		$appId = $this->socialHelper->getAppId();
 		$data = array(
-			ucfirst($social) => [
-				'enabled' => $this->socialHelper->isEnable(),
-				'keys' => array(
-					'id' => $appId,
-					'key' => $appId,
-					'secret' => $this->socialHelper->getAppSecret()
-				)
-			]
+			'enabled' => $this->socialHelper->isEnable(),
+			'keys' => array(
+				'id' => $appId,
+				'key' => $appId,
+				'secret' => $this->socialHelper->getAppSecret()
+			)
 		);
 
-		return $data;
+		$data = array_merge($data,$this->socialHelper->getSocialProviderData());
+		return array(ucfirst($social) =>$data);
 	}
 }

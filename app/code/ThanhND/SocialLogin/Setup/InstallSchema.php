@@ -8,6 +8,7 @@
 
 namespace ThanhND\SocialLogin\Setup;
 
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -32,7 +33,7 @@ class InstallSchema implements InstallSchemaInterface
 			$installer->getTable('thanhnd_sociallogin')
 		)->addColumn(
 			'entity_id',
-			\Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+			Table::TYPE_INTEGER,
 			10,
 			[
 				'identity' => true,
@@ -43,7 +44,7 @@ class InstallSchema implements InstallSchemaInterface
 			'Entity ID'
 		)->addColumn(
 			'social_id',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+			Table::TYPE_TEXT,
 			50,
 			[
 				'nullable' => false
@@ -51,7 +52,7 @@ class InstallSchema implements InstallSchemaInterface
 			'Social Id'
 		)->addColumn(
 			'customer_id',
-			\Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+			Table::TYPE_INTEGER,
 			10,
 			[
 				'nullable' => false,
@@ -60,7 +61,7 @@ class InstallSchema implements InstallSchemaInterface
 			'Customer Id'
 		)->addColumn(
 			'type',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+			Table::TYPE_TEXT,
 			50,
 			[
 				'default' => '',
@@ -69,20 +70,20 @@ class InstallSchema implements InstallSchemaInterface
 			'Type'
 		)->addColumn(
 			'creation_time',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+			Table::TYPE_TIMESTAMP,
 			null,
 			[
 				'nullable' => false,
-				'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT
+				'default' => Table::TIMESTAMP_INIT
 			],
 			'Creation Time'
 		)->addColumn(
 			'update_time',
-			\Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+			Table::TYPE_TIMESTAMP,
 			null,
 			[
 				'nullable' => false,
-				'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE
+				'default' => Table::TIMESTAMP_INIT_UPDATE
 			],
 			'Modification Time'
 		);

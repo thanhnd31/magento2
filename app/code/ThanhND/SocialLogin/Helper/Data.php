@@ -8,6 +8,8 @@
 
 namespace ThanhND\SocialLogin\Helper;
 
+use Magento\Store\Model\ScopeInterface;
+
 /**
  * Class Data
  * @package ThanhND\SocialLogin\Helper
@@ -17,17 +19,15 @@ class Data extends \ThanhND\Core\Helper\Data
 	const PROVIDER_DATA = array(
 		'facebook'  => ["trustForwarded" => false, 'scope' => 'email, user_about_me'],
 		'twitter'   => ["includeEmail" => true],
-		'linkedIn'  => ["fields" => ['id', 'first-name', 'last-name', 'email-address']],
-		'vkontakte' => ['wrapper' => ['class' => '\ThanhND\SocialLogin\Model\Providers\Vkontakte']],
 		'instagram' => ['wrapper' => ['class' => '\ThanhND\SocialLogin\Model\Providers\Instagram']],
-		'github'    => ['wrapper' => ['class' => '\ThanhND\SocialLogin\Model\Providers\GitHub']],
 		'amazon'    => ['wrapper' => ['class' => '\ThanhND\SocialLogin\Model\Providers\Amazon']]
 	);
 	const AVAILABLE_SOCIALS = array(
 		"google"=>"Google",
-		"facebookk"=>"Facebook",
+		"facebook"=>"Facebook",
 		"twitter"=>"Twitter",
-		"instagram"=>"Instagram"
+		"instagram"=>"Instagram",
+		"amazon"=>"Amazon"
 	);
 	/**
 	 * @var $social: Social Type
@@ -87,9 +87,9 @@ class Data extends \ThanhND\Core\Helper\Data
 	 */
 	protected function getStoreScope()
 	{
-		$scope = $this->_request->getParam(\Magento\Store\Model\ScopeInterface::SCOPE_STORE) ?: $this->storeManager->getStore()->getId();
+		$scope = $this->_request->getParam(ScopeInterface::SCOPE_STORE) ?: $this->storeManager->getStore()->getId();
 
-		if ($website = $this->_request->getParam(\Magento\Store\Model\ScopeInterface::SCOPE_WEBSITE)) {
+		if ($website = $this->_request->getParam(ScopeInterface::SCOPE_WEBSITE)) {
 			$scope = $this->storeManager->getWebsite($website)->getDefaultStore()->getId();
 		}
 
@@ -114,7 +114,11 @@ class Data extends \ThanhND\Core\Helper\Data
 	 * @return mixed
 	 */
 	public function getSocialProviderData(){
-		return self::PROVIDER_DATA[$this->social];
+		if(isset(self::PROVIDER_DATA[$this->social]))
+		{
+			return self::PROVIDER_DATA[$this->social];
+		}
+		return [];
 	}
 
 	/**

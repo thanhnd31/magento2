@@ -10,6 +10,9 @@ namespace ThanhND\SocialLogin\Controller\Account;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
+use Magento\Framework\Stdlib\Cookie\PhpCookieManager;
 use ThanhND\SocialLogin\Model\SocialLogin;
 use ThanhND\SocialLogin\Helper\Data as SocialHelper;
 use Magento\Customer\Model\Session as CustomerSession;
@@ -40,7 +43,7 @@ class Login extends Action
 	/**
 	 * @type
 	 */
-	private $cookieMetadataManager;
+	private $cookieManager;
 
 	/**
 	 * @type
@@ -58,6 +61,8 @@ class Login extends Action
 	 * @param SocialHelper $socialHelper
 	 * @param CustomerSession $customerSession
 	 * @param AccountRedirect $accountRedirect
+	 * @param PhpCookieManager $cookieManager
+	 * @param CookieMetadataFactory $cookieMetadataFactory
 	 * @param SocialLogin $social
 	 */
 	public function __construct(
@@ -65,6 +70,8 @@ class Login extends Action
 		SocialHelper $socialHelper,
 		CustomerSession $customerSession,
 		AccountRedirect $accountRedirect,
+		PhpCookieManager $cookieManager,
+		CookieMetadataFactory $cookieMetadataFactory,
 		SocialLogin $social
 	){
 		$this->social = $social;
@@ -72,6 +79,8 @@ class Login extends Action
 		$this->customerSession = $customerSession;
 		$this->urlBuilder = $context->getUrl();
 		$this->accountRedirect = $accountRedirect;
+		$this->cookieManager = $cookieManager;
+		$this->cookieMetadataFactory = $cookieMetadataFactory;
 
 		parent::__construct($context);
 	}
@@ -85,17 +94,22 @@ class Login extends Action
 
 		// Check social type is valid
 		if(!$this->socialHelper->isAvailableSocial($social)){
-			return $this->closePopup();
+			return $this->closePopup($this->urlBuilder->getUrl('customer/account/login'));
 		}
 
 		// Get social information
-		$userProfile = $this->social->getUserProfile($social);
+		try {
+			$userProfile = $this->social->getUserProfile($social);
+		}catch (\Exception $e)
+		{
+			$message = $e->getMessage();
+			$this->messageManager->addErrorMessage($message);
+			return $this->closePopup($this->urlBuilder->getUrl('customer/account/login'));
+		}
 		if(!$userProfile->identifier){
 			$message = __('Email is Null, Please enter email in your %1 profile', $social);
 			$this->messageManager->addErrorMessage($message);
-			$this->_redirect('customer/account/login');
-
-			return $this;
+			return $this->closePopup($this->urlBuilder->getUrl('customer/account/login'));
 		}
 
 		// Get social customer
@@ -110,11 +124,11 @@ class Login extends Action
 				'social'=>$social
 			);
 			try{
-				$customer = $this->social->createCustomer($user,$this->socialHelper->getStore());
+				$store = $this->socialHelper->getStore();
+				$customer = $this->social->createCustomer($user,$store);
 			}catch (\Excepttion $e){
 				$this->messageManager->addErrorMessage($e->getMessage());
-				$this->_redirect('customer/account/login');
-				return $this;
+				return $this->closePopup($this->urlBuilder->getUrl('customer/account/login'));
 			}
 		}
 		return $this->loginRedirect($customer);
@@ -130,16 +144,14 @@ class Login extends Action
 			$this->customerSession->setCustomerAsLoggedIn($customer);
 			$this->customerSession->regenerateId();
 
-			if ($this->getCookieManager()->getCookie('mage-cache-sessid')) {
-				$metadata = $this->getCookieMetadataFactory()->createCookieMetadata();
+			if ($this->cookieManager->getCookie('mage-cache-sessid')) {
+				$metadata = $this->cookieMetadataFactory->createCookieMetadata();
 				$metadata->setPath('/');
-				$this->getCookieManager()->deleteCookie('mage-cache-sessid', $metadata);
+				$this->cookieManager->deleteCookie('mage-cache-sessid', $metadata);
 			}
 		}
 
-		$resultRaw = $this->resultFactory->create('raw');
-
-		return $resultRaw->setContents(sprintf("<script>window.opener.socialCallback('%s', window);</script>", $this->getRedirectUrl()));
+		return $this->closePopup($this->getRedirectUrl());
 	}
 
 
@@ -163,45 +175,11 @@ class Login extends Action
 	}
 
 	/**
-	 * Retrieve cookie manager
-	 *
-	 * @deprecated
-	 * @return \Magento\Framework\Stdlib\Cookie\PhpCookieManager
-	 */
-	private function getCookieManager()
-	{
-		if (!$this->cookieMetadataManager) {
-			$this->cookieMetadataManager = \Magento\Framework\App\ObjectManager::getInstance()->get(
-				\Magento\Framework\Stdlib\Cookie\PhpCookieManager::class
-			);
-		}
-
-		return $this->cookieMetadataManager;
-	}
-
-	/**
-	 * Retrieve cookie metadata factory
-	 *
-	 * @deprecated
-	 * @return \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
-	 */
-	private function getCookieMetadataFactory()
-	{
-		if (!$this->cookieMetadataFactory) {
-			$this->cookieMetadataFactory = \Magento\Framework\App\ObjectManager::getInstance()->get(
-				\Magento\Framework\Stdlib\Cookie\CookieMetadataFactory::class
-			);
-		}
-
-		return $this->cookieMetadataFactory;
-	}
-
-	/**
+	 * @param null $url
 	 * @return mixed
 	 */
-	protected function closePopup(){
-		$content = "<script type=\"text/javascript\">window.close();</script>";
+	protected function closePopup($url=null){
 		$resultRaw = $this->resultFactory->create('raw');
-		return $resultRaw->setContents($content);
+		return $resultRaw->setContents(sprintf("<script>window.opener.socialCallback('%s', window);</script>", $url));
 	}
 }
