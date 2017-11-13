@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="ThanhND_Core::thanhnd" title="Training" sortOrder="20">
+                    <resource id="ThanhND_FooterLink::footerlink" title="Footer Link Manager" sortOrder="10">
+                        <resource id="ThanhND_FooterLink::footerlink_group" title="Manage Link Group" sortOrder="10"/>
+                        <resource id="ThanhND_FooterLink::footerlink_link" title="Manage Link" sortOrder="20"/>
+                        <resource id="ThanhND_FooterLink::footerlink_config" title="Configuarations" sortOrder="30"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

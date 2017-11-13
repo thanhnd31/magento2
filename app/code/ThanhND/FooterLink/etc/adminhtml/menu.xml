@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <menu>
+        <add id="ThanhND_FooterLink::footerlink" title="Footer Link" module="ThanhND_FooterLink" sortOrder="10" parent="ThanhND_Core::thanhnd" resource="ThanhND_FooterLink::footerlink"/>
+        <add id="ThanhND_FooterLink::footerlink_group" title="Manage Group" module="ThanhND_FooterLink" sortOrder="10" parent="ThanhND_FooterLink::footerlink" action="footerlink/group" resource="ThanhND_FooterLink::footerlink_group"/>
+        <add id="ThanhND_FooterLink::footerlink_link" title="Manage Link" module="ThanhND_FooterLink" sortOrder="20" parent="ThanhND_FooterLink::footerlink" action="footerlink/link" resource="ThanhND_FooterLink::footerlink_link"/>
+        <add id="ThanhND_FooterLink::footerlink_config" title="Configuarations" module="ThanhND_FooterLink" sortOrder="30" parent="ThanhND_FooterLink::footerlink" action="adminhtml/system_config/edit/section/footerlink" resource="ThanhND_FooterLink::footerlink_config"/>
+    </menu>
+</config>

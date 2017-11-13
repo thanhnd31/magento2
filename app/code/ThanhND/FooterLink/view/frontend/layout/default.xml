@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="footer_links"/>
+    <body>
+        <referenceContainer name="footer">
+            <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="subscribe.phtml"/>
+            <block class="ThanhND\FooterLink\Block\Link" name="thanhnd_footer_links" template="footerlinks.phtml" before="copyright" ifconfig="thanhnd_footerlink/general/enable"/>
+        </referenceContainer>
+    </body>
+</page>

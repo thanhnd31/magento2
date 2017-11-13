@@ -1,0 +1,11 @@
+<?php
+$footerlinks = $block->getFooterLinks();
+foreach($footerlinks as $group=>$links) {
+    ?>
+    <ul class="footer links">
+        <li class="nav item current"><strong><?php echo __($group) ?></strong></li>
+        <?php foreach($links as $link) { ?>
+            <li class="nav item"><a href="<?php echo $link['url']?>"><?php echo __($link['label'])?></a></li>
+        <?php } ?>
+    </ul>
+<?php } ?>
